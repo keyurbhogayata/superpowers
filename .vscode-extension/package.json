@@ -1,0 +1,71 @@
+{
+  "name": "superpowers-mcp",
+  "displayName": "Superpowers",
+  "description": "Development workflow skills for any AI agent via MCP: TDD, debugging, brainstorming, planning, and code review",
+  "version": "5.0.7",
+  "icon": "icon.png",
+  "publisher": "keyurbhogayata",
+  "license": "MIT",
+  "repository": "https://github.com/keyurbhogayata/superpowers",
+  "homepage": "https://github.com/keyurbhogayata/superpowers",
+  "engines": {
+    "vscode": "^1.99.0",
+    "node": ">=20.0.0"
+  },
+  "categories": [
+    "AI",
+    "Chat"
+  ],
+  "keywords": [
+    "mcp",
+    "skills",
+    "tdd",
+    "debugging",
+    "brainstorming",
+    "copilot",
+    "cline"
+  ],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "mcpServerDefinitionProviders": [
+      {
+        "id": "superpowers-mcp.provider",
+        "label": "Superpowers Skills"
+      }
+    ],
+    "commands": [
+      {
+        "command": "superpowers.listSkills",
+        "title": "Superpowers: List Available Skills"
+      }
+    ]
+  },
+  "scripts": {
+    "build": "node esbuild.js",
+    "watch": "node esbuild.js --watch",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "package": "npm run build && vsce package --no-dependencies",
+    "lint": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.11.0",
+    "gray-matter": "^4.0.3",
+    "yaml": "^2.8.3"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "@types/vscode": "^1.99.0",
+    "@vscode/vsce": "^3.0.0",
+    "esbuild": "^0.25.0",
+    "typescript": "^5.7.0",
+    "vitest": "^3.0.0"
+  },
+  "type": "module",
+  "bin": {
+    "superpowers-mcp": "./bin/superpowers-mcp.js"
+  }
+}

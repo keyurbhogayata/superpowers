@@ -36,7 +36,7 @@ async function build() {
   await esbuild.build({
     ...commonOptions,
     entryPoints: ['src/extension.ts'],
-    outfile: 'dist/extension.js',
+    outfile: 'dist/extension.cjs',
     external: ['vscode'],
     format: 'cjs',
   });
@@ -47,6 +47,9 @@ async function build() {
     entryPoints: ['src/server.ts'],
     outfile: 'dist/server.js',
     format: 'esm',
+    banner: {
+      js: "import { createRequire } from 'module'; const require = createRequire(import.meta.url);",
+    },
   });
 
   console.log('[build] Done.');
@@ -57,7 +60,7 @@ if (watch) {
     esbuild.context({
       ...commonOptions,
       entryPoints: ['src/extension.ts'],
-      outfile: 'dist/extension.js',
+      outfile: 'dist/extension.cjs',
       external: ['vscode'],
       format: 'cjs',
     }).then(ctx => ctx.watch()),
@@ -66,6 +69,9 @@ if (watch) {
       entryPoints: ['src/server.ts'],
       outfile: 'dist/server.js',
       format: 'esm',
+      banner: {
+        js: "import { createRequire } from 'module'; const require = createRequire(import.meta.url);",
+      },
     }).then(ctx => ctx.watch()),
   ]).then(() => {
     copySkills();
